@@ -58,6 +58,7 @@ module.exports = {
                   email,
                   id,
                   name,
+                  tokenFcm
                 } = data[0];
                 console.log(hashedPassword);
                 bcrypt.compare(password, hashedPassword, (error, result) => {
@@ -71,6 +72,7 @@ module.exports = {
                     const data = {
                       token: token,
                       role: roleId,
+                      fcm:tokenFcm
                     };
                     resolve(data);
                   } else {
