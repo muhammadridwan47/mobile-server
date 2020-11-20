@@ -57,18 +57,20 @@ module.exports = {
       console.log(req.file, "controller file");
       console.log(req.body, "controller body");
       if (!req.file) {
+        console.log('ini  bukan file')
         userModel
           .patchUser(id, req.body)
           .then((data) => formResponse(data, res, 200, "Name has been change."))
           .catch((err) => formResponse([], res, 404, "data not found."));
       } else {
+        console.log('ini file')
         const type = req.file.originalname.split(".")[1];
         const mime = MIMEType(type);
         if (mime == false) {
           formResponse([], res, 400, "File is not Image");
         } else {
           if (!err) {
-            const imageName = `${process.env.BASE_URI}/images/${req.file.filename}`;
+            const imageName = `${req.file.filename}`;
             userModel
               .patchUser(id, req.body, imageName)
               .then((data) => {
